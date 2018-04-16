@@ -1,0 +1,32 @@
+#include<sys/types.h>
+#include<unistd.h>
+#include<stdio.h>
+int main()
+{
+pid_t  p;
+int a,i;
+printf("enter number\n");
+scanf("%d",&a);
+if(a<=0)
+{
+printf("enter positive number\n");
+return 0;
+}
+p=fork(); // creates duplicate process P1
+switch(p)
+{
+case -1:
+	printf("Error\n");
+	break;
+case 0:  // executed by child
+	printf("I am child process came from parent process\n");
+	for(i=a;i>0;i=i/2)
+	printf("%d\n",i);
+	printf("child process completed\n");
+	break;
+default:  // executed by parent
+	printf("I am parent process I executes first\n");						
+	wait();
+	printf("parent process completed\n");                 
+}
+}
